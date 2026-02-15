@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AiService {
 
   constructor() {
     this.ai = new GoogleGenAI({
-      apiKey: "AIzaSyBDFR-nXrHLnENNyXecpTOaGirhKI7JX5g"
+      apiKey: environment.apiKey
     });
   }
 
