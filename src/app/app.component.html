@@ -167,7 +167,22 @@
             }
           </div>
 
-          <h3>Select Implementation Status:</h3>
+                      <!-- AI Explanation Button Section -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+              <h3 style="margin: 0;">Select Implementation Status:</h3>
+              
+              <button (click)="loadAiExplanation()" 
+                      [disabled]="aiLoading"
+                      style="padding: 10px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                @if (aiLoading) {
+                  <span style="animation: spin 1s linear infinite; display: inline-block;">⏳</span>
+                  <span>Loading AI...</span>
+                } @else {
+                  <span>🤖</span>
+                  <span>Explain with AI</span>
+                }
+              </button>
+            </div>
           <div style="margin: 20px 0;">
             @for (option of selectedRequirement.options; track option.id) {
               <label style="display: block; padding: 15px; margin: 10px 0; border: 2px solid #ecf0f1; border-radius: 5px; cursor: pointer;"
@@ -182,6 +197,83 @@
               </label>
             }
           </div>
+                      <!-- AI Explanation Panel -->
+            @if (showAiExplanation) {
+              <div style="margin-top: 30px; border-top: 2px solid #ecf0f1; padding-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                  <h3 style="margin: 0;">🤖 AI Assistant</h3>
+                  <button (click)="showAiExplanation = false" 
+                          style="padding: 5px 15px; background: #e74c3c; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                    Hide AI Panel
+                  </button>
+                </div>
+
+                <!-- Tabs -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ecf0f1;">
+                  <button (click)="loadAiExplanation()" 
+                          [style.background]="activeTab === 'explanation' ? '#3498db' : 'transparent'"
+                          [style.color]="activeTab === 'explanation' ? 'white' : '#3498db'"
+                          style="padding: 10px 20px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: bold;"
+                          [style.border-bottom-color]="activeTab === 'explanation' ? '#3498db' : 'transparent'">
+                    📖 Explanation
+                  </button>
+                  
+                  <button (click)="loadBestPractices()" 
+                          [style.background]="activeTab === 'bestPractices' ? '#3498db' : 'transparent'"
+                          [style.color]="activeTab === 'bestPractices' ? 'white' : '#3498db'"
+                          style="padding: 10px 20px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: bold;"
+                          [style.border-bottom-color]="activeTab === 'bestPractices' ? '#3498db' : 'transparent'">
+                    ✅ Best Practices
+                  </button>
+                  
+                  <button (click)="loadCodeExample()" 
+                          [style.background]="activeTab === 'codeExample' ? '#3498db' : 'transparent'"
+                          [style.color]="activeTab === 'codeExample' ? 'white' : '#3498db'"
+                          style="padding: 10px 20px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: bold;"
+                          [style.border-bottom-color]="activeTab === 'codeExample' ? '#3498db' : 'transparent'">
+                    💻 Code Example
+                  </button>
+                  
+                  <button (click)="loadTestingGuidance()" 
+                          [style.background]="activeTab === 'testing' ? '#3498db' : 'transparent'"
+                          [style.color]="activeTab === 'testing' ? 'white' : '#3498db'"
+                          style="padding: 10px 20px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: bold;"
+                          [style.border-bottom-color]="activeTab === 'testing' ? '#3498db' : 'transparent'">
+                    🧪 Testing
+                  </button>
+                </div>
+
+                <!-- AI Content -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; min-height: 200px; max-height: 500px; overflow-y: auto;">
+                  @if (aiLoading) {
+                    <div style="text-align: center; padding: 50px;">
+                      <div style="font-size: 48px; animation: spin 2s linear infinite;">🤖</div>
+                      <p style="margin-top: 20px; color: #7f8c8d;">AI is analyzing the requirement...</p>
+                      <p style="color: #95a5a6; font-size: 14px;">This may take a few seconds</p>
+                    </div>
+                  } @else {
+                    @if (aiExplanation) {
+                      <!-- Render Markdown -->
+                    <div style="line-height: 1.8; color: #2c3e50;" 
+                        [innerHTML]="aiExplanation | markdown">
+                    </div>
+                    } @else {
+                      <div style="text-align: center; padding: 50px; color: #95a5a6;">
+                        <p>Click "Explain with AI" to get detailed information</p>
+                      </div>
+                    }
+                  }
+                </div>
+
+                <!-- Quick Actions -->
+                <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;">
+                  <button (click)="loadAiExplanation()" 
+                          style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    🔄 Refresh
+                  </button>
+                </div>
+              </div>
+            }
 
           <div style="margin-top: 20px;">
             <label style="display: block; margin-bottom: 5px; font-weight: bold;">

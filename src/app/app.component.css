@@ -1,0 +1,91 @@
+/* src/app/app.component.css */
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Markdown Styling */
+::ng-deep .ai-explanation h1,
+::ng-deep .ai-explanation h2,
+::ng-deep .ai-explanation h3 {
+  color: #2c3e50;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+::ng-deep .ai-explanation h1 {
+  font-size: 24px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+::ng-deep .ai-explanation h2 {
+  font-size: 20px;
+  color: #3498db;
+}
+
+::ng-deep .ai-explanation h3 {
+  font-size: 18px;
+}
+
+::ng-deep .ai-explanation p {
+  margin: 10px 0;
+  line-height: 1.8;
+}
+
+::ng-deep .ai-explanation ul,
+::ng-deep .ai-explanation ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+::ng-deep .ai-explanation li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+::ng-deep .ai-explanation code {
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #e74c3c;
+  font-family: 'Courier New', monospace;
+}
+
+::ng-deep .ai-explanation pre {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 15px 0;
+}
+
+::ng-deep .ai-explanation pre code {
+  background: transparent;
+  color: #ecf0f1;
+  padding: 0;
+}
+
+::ng-deep .ai-explanation blockquote {
+  border-left: 4px solid #3498db;
+  padding-left: 15px;
+  margin: 15px 0;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+::ng-deep .ai-explanation strong {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+::ng-deep .ai-explanation a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+::ng-deep .ai-explanation a:hover {
+  text-decoration: underline;
+}
