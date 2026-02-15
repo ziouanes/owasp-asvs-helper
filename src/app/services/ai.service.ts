@@ -3,7 +3,8 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
