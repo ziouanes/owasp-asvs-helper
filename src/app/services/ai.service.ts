@@ -1,23 +1,30 @@
 // src/app/services/ai.service.ts
 
 import { Injectable } from '@angular/core';
-import { GoogleGenAI } from '@google/genai';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-//import { environment } from '../../environments/environment';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AiService {
-  private ai: GoogleGenAI;
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
   public isLoading$ = this.isLoadingSubject.asObservable();
 
-  constructor() {
-    this.ai = new GoogleGenAI({
-      apiKey: environment.apiUrl
-    });
+  constructor(private http: HttpClient) {}
+
+  private async callAi(prompt: string): Promise<string> {
+    const response = await this.http.post<{ text?: string; error?: string }>(environment.apiUrl, { prompt }).toPromise();
+    if (!response) {
+      return 'No response generated.';
+    }
+
+    if (response.error) {
+      throw new Error(response.error);
+    }
+
+    return response.text || 'No response generated.';
   }
 
   async getExplanation(requirementText: string): Promise<string> {
@@ -38,18 +45,12 @@ Provide:
 
 Format your response in Markdown.`;
 
-      const response = await this.ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-      });
-
+      const text = await this.callAi(prompt);
       this.isLoadingSubject.next(false);
-      console.log('✅ AI Explanation received from Gemini');
-      return response.text || "No response generated.";
+      return text;
       
     } catch (error: any) {
       this.isLoadingSubject.next(false);
-      console.error('❌ Gemini Error:', error);
       return `**Error:** ${error.message || 'Unable to connect to AI'}`;
     }
   }
@@ -69,13 +70,9 @@ Include:
 
 Format in Markdown.`;
 
-      const response = await this.ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-      });
-
+      const text = await this.callAi(prompt);
       this.isLoadingSubject.next(false);
-      return response.text || "No response generated.";
+      return text;
       
     } catch (error: any) {
       this.isLoadingSubject.next(false);
@@ -98,13 +95,9 @@ Include:
 
 Format in Markdown with code blocks.`;
 
-      const response = await this.ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-      });
-
+      const text = await this.callAi(prompt);
       this.isLoadingSubject.next(false);
-      return response.text || "No response generated.";
+      return text;
       
     } catch (error: any) {
       this.isLoadingSubject.next(false);
@@ -128,13 +121,9 @@ Include:
 
 Format in Markdown.`;
 
-      const response = await this.ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-      });
-
+      const text = await this.callAi(prompt);
       this.isLoadingSubject.next(false);
-      return response.text || "No response generated.";
+      return text;
       
     } catch (error: any) {
       this.isLoadingSubject.next(false);
