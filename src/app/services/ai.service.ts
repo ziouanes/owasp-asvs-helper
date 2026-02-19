@@ -16,7 +16,7 @@ export class AiService {
 
   constructor() {
     this.ai = new GoogleGenAI({
-      apiKey: environment.apiKey
+      apiKey: environment.apiUrl
     });
   }
 
