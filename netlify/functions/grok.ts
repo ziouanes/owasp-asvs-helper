@@ -8,7 +8,7 @@ type HandlerResponse = {
   body: string;
 };
 
-type GrokResponse = {
+type GroqResponse = {
   choices?: Array<{
     message?: {
       content?: string;
@@ -27,11 +27,11 @@ export const handler = async (event: HandlerEvent): Promise<HandlerResponse> => 
     };
   }
 
-  const apiKey = process.env['GROK_API_KEY'];
+  const apiKey = process.env['GROQ_API_KEY'] || process.env['GROK_API_KEY'];
   if (!apiKey) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Missing GROK_API_KEY' })
+      body: JSON.stringify({ error: 'Missing GROQ_API_KEY' })
     };
   }
 
@@ -46,14 +46,14 @@ export const handler = async (event: HandlerEvent): Promise<HandlerResponse> => 
   }
 
   try {
-    const grokResponse = await fetch('https://api.x.ai/v1/chat/completions', {
+    const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'grok-2-latest',
+        model: 'llama-3.1-8b-instant',
         messages: [
           {
             role: 'user',
@@ -64,12 +64,12 @@ export const handler = async (event: HandlerEvent): Promise<HandlerResponse> => 
       })
     });
 
-    const data = (await grokResponse.json()) as GrokResponse;
+    const data = (await groqResponse.json()) as GroqResponse;
 
-    if (!grokResponse.ok) {
+    if (!groqResponse.ok) {
       return {
-        statusCode: grokResponse.status,
-        body: JSON.stringify({ error: data.error?.message || 'Grok API error' })
+        statusCode: groqResponse.status,
+        body: JSON.stringify({ error: data.error?.message || 'Groq API error' })
       };
     }
 
@@ -82,7 +82,7 @@ export const handler = async (event: HandlerEvent): Promise<HandlerResponse> => 
   } catch {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Unable to connect to Grok API' })
+      body: JSON.stringify({ error: 'Unable to connect to Groq API' })
     };
   }
 };

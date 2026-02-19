@@ -1,30 +1,62 @@
 // src/app/services/ai.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AiService {
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
   public isLoading$ = this.isLoadingSubject.asObservable();
+  private localApiKey = (environment as any).apiKey as string | undefined;
+  private directModel = 'llama-3.1-8b-instant';
 
   constructor(private http: HttpClient) {}
 
   private async callAi(prompt: string): Promise<string> {
-    const response = await this.http.post<{ text?: string; error?: string }>(environment.apiUrl, { prompt }).toPromise();
-    if (!response) {
-      return 'No response generated.';
+    if (this.localApiKey) {
+      try {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${this.localApiKey}`,
+          'Content-Type': 'application/json'
+        });
+
+        const directResponse: any = await firstValueFrom(
+          this.http.post(environment.apiUrl, {
+            model: this.directModel,
+            messages: [{ role: 'user', content: prompt }],
+            temperature: 0.3
+          }, { headers })
+        );
+
+        return directResponse?.choices?.[0]?.message?.content ?? 'No response generated.';
+      } catch (error: unknown) {
+        if (error instanceof HttpErrorResponse) {
+          const apiMessage =
+            (error.error?.error?.message as string | undefined) ||
+            (error.error?.message as string | undefined) ||
+            error.message;
+          throw new Error(`Direct Groq API error (${error.status}): ${apiMessage}`);
+        }
+
+        throw error;
+      }
     }
 
-    if (response.error) {
+    const response: any = await firstValueFrom(
+      this.http.post(environment.apiUrl, { prompt })
+    );
+
+    if (response?.error) {
       throw new Error(response.error);
     }
 
-    return response.text || 'No response generated.';
+    return response?.text ?? 'No response generated.';
   }
 
   async getExplanation(requirementText: string): Promise<string> {
