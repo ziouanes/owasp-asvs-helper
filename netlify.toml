@@ -1,8 +1,2 @@
 [build]
-  command = "ng build --configuration production"
-  publish = "dist/owasp-asvs-helper/browser"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  functions = "netlify/functions"
