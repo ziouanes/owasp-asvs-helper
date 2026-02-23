@@ -5,9 +5,9 @@
   <header style="background: #2c3e50; color: white; padding: 20px;">
     <h1>🛡️ OWASP ASVS Checklist Helper</h1>
     <div style="margin-top: 10px;">
-      <button (click)="exportJSON()" style="padding: 10px 20px; margin-right: 10px; cursor: pointer;">
+      <!-- <button (click)="exportJSON()" style="padding: 10px 20px; margin-right: 10px; cursor: pointer;">
         📥 Export JSON
-      </button>
+      </button> -->
       <button (click)="reset()" style="padding: 10px 20px; cursor: pointer;">
         🔄 Reset
       </button>
@@ -99,7 +99,7 @@
 
     <!-- Requirements List -->
     @if (selectedCategory) {
-      <div style="padding: 20px; background: #ecf0f1;">
+      <div #requirementsSection style="padding: 20px; background: #ecf0f1;">
         <h2>📝 {{ selectedCategory.name }} - Requirements</h2>
         <table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse; background: white;">
           <thead style="background: #34495e; color: white;">
@@ -275,7 +275,7 @@
               </div>
             }
 
-          <div style="margin-top: 20px;">
+          <!-- <div style="margin-top: 20px;">
             <label style="display: block; margin-bottom: 5px; font-weight: bold;">
               Comments / Notes:
             </label>
@@ -283,9 +283,9 @@
                       (change)="dataService.updateRequirement(selectedCategory!.name, selectedRequirement!.id, { comment: selectedRequirement!.comment })"
                       style="width: 100%; padding: 10px; min-height: 100px; border: 1px solid #ddd; border-radius: 5px;"
                       placeholder="Add your comments here..."></textarea>
-          </div>
+          </div> -->
 
-          <div style="margin-top: 15px;">
+          <!-- <div style="margin-top: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: bold;">
               Source Code Reference:
             </label>
@@ -294,9 +294,9 @@
                    (change)="dataService.updateRequirement(selectedCategory!.name, selectedRequirement!.id, { sourceCodeReference: selectedRequirement!.sourceCodeReference })"
                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
                    placeholder="e.g., UserController.cs:125">
-          </div>
+          </div> -->
 
-          <div style="margin-top: 15px;">
+          <!-- <div style="margin-top: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: bold;">
               Tool Used:
             </label>
@@ -305,7 +305,7 @@
                    (change)="dataService.updateRequirement(selectedCategory!.name, selectedRequirement!.id, { toolUsed: selectedRequirement!.toolUsed })"
                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
                    placeholder="e.g., SonarQube, OWASP ZAP">
-          </div>
+          </div> -->
         </div>
       </div>
     }

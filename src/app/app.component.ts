@@ -1,6 +1,6 @@
 // src/app/app.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from './services/data.service';
@@ -24,6 +24,20 @@ export class AppComponent implements OnInit {
   selectedCategory: Category | null = null;
   selectedRequirement: Requirement | null = null;
 
+  private shouldScrollToRequirements = false;
+  private requirementsSectionRef?: ElementRef<HTMLDivElement>;
+
+
+  @ViewChild('requirementsSection')
+  set requirementsSection(value: ElementRef<HTMLDivElement> | undefined) {
+    this.requirementsSectionRef = value;
+
+        // First click case: element appears now, so scroll now
+    if (value && this.shouldScrollToRequirements) {
+      this.scrollToRequirements();
+      this.shouldScrollToRequirements = false;
+    }
+  }
   // AI Explanation state
   showAiExplanation: boolean = false;
   aiExplanation: string = '';
@@ -50,6 +64,20 @@ export class AppComponent implements OnInit {
   selectCategory(category: Category): void {
     this.selectedCategory = category;
     this.selectedRequirement = null;
+
+    if (this.requirementsSectionRef) {
+      this.scrollToRequirements();
+    } else {
+      // element not in DOM yet (first click)
+      this.shouldScrollToRequirements = true;
+    }
+  }
+
+  private scrollToRequirements(): void {
+    this.requirementsSectionRef?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 
   selectRequirement(req: Requirement): void {
