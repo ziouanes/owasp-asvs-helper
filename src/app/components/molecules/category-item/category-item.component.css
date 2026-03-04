@@ -1,0 +1,40 @@
+.category-card {
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #ecf0f1;
+  background: #fff;
+  color: #000;
+}
+
+.category-card.selected {
+  background: #3498db;
+  color: #fff;
+}
+
+.category-card h3 {
+  margin: 0 0 10px;
+}
+
+.category-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.progress-track {
+  background: rgba(0, 0, 0, 0.1);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #27ae60;
+  height: 100%;
+}
+
+.badge {
+  margin: 10px 0 0;
+  font-size: 14px;
+}

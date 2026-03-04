@@ -1,0 +1,17 @@
+.option-item {
+  display: block;
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #ecf0f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.option-item.selected {
+  background: #3498db;
+  color: #fff;
+}
+
+.option-item input {
+  margin-right: 10px;
+}

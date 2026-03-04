@@ -1,0 +1,28 @@
+<table border="1" cellpadding="10" class="summary-table">
+  <thead>
+    <tr>
+      <th>Security Category</th>
+      <th>Valid</th>
+      <th>Total</th>
+      <th>Percentage</th>
+      <th>ASVS Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (sum of summary; track sum.securityCategory) {
+      <tr [class.total-row]="sum.securityCategory === 'Total'">
+        <td>{{ sum.securityCategory }}</td>
+        <td class="center">{{ sum.validCriteria }}</td>
+        <td class="center">{{ sum.totalCriteria }}</td>
+        <td class="center">{{ sum.validityPercentage }}%</td>
+        <td class="center">
+          @if (sum.asvsLevelAcquired > 0) {
+            <span class="level-ok">Level {{ sum.asvsLevelAcquired }}</span>
+          } @else {
+            <span class="level-empty">-</span>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

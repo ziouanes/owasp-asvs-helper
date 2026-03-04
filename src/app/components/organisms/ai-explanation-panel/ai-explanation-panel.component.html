@@ -1,0 +1,27 @@
+<div class="ai-panel">
+  <div class="ai-header">
+    <h3>🤖 AI Assistant</h3>
+    <button class="hide-btn" (click)="closePanel.emit()">Hide AI Panel</button>
+  </div>
+
+  <app-tabs [activeTab]="activeTab" (tabSelected)="onTabSelected($event)"></app-tabs>
+
+  <div class="ai-content">
+    @if (aiLoading) {
+      <app-spinner
+        message="AI is analyzing the requirement..."
+        subMessage="This may take a few seconds">
+      </app-spinner>
+    } @else {
+      @if (aiExplanation) {
+        <app-markdown-viewer [content]="aiExplanation"></app-markdown-viewer>
+      } @else {
+        <div class="empty">Click "Explain with AI" to get detailed information</div>
+      }
+    }
+  </div>
+
+  <div class="actions">
+    <button (click)="refreshRequested.emit()">🔄 Refresh</button>
+  </div>
+</div>

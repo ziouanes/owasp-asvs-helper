@@ -1,0 +1,28 @@
+<app-dashboard-summary [checklist]="checklist"></app-dashboard-summary>
+
+<section class="table-wrapper">
+  <app-summary-table [summary]="checklist.summary"></app-summary-table>
+</section>
+
+<app-category-list
+  [categories]="checklist.categories"
+  [selectedCategoryName]="selectedCategory?.name ?? null"
+  (categorySelected)="categorySelected.emit($event)">
+</app-category-list>
+
+<app-requirements-panel
+  [selectedCategory]="selectedCategory"
+  [selectedRequirement]="selectedRequirement"
+  [showAiExplanation]="showAiExplanation"
+  [aiExplanation]="aiExplanation"
+  [aiLoading]="aiLoading"
+  [activeTab]="activeTab"
+  (requirementSelected)="requirementSelected.emit($event)"
+  (requirementClosed)="requirementClosed.emit()"
+  (optionSelected)="optionSelected.emit($event)"
+  (aiExplanationRequested)="aiExplanationRequested.emit()"
+  (bestPracticesRequested)="bestPracticesRequested.emit()"
+  (codeExampleRequested)="codeExampleRequested.emit()"
+  (testingRequested)="testingRequested.emit()"
+  (aiPanelHidden)="aiPanelHidden.emit()">
+</app-requirements-panel>

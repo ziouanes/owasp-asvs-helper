@@ -1,0 +1,9 @@
+<section class="summary-section">
+  <h2>📊 Overall Progress</h2>
+  <div class="summary-grid">
+    <app-stat-card title="Completed" [value]="checklist.getTotalCompleted()" color="#3498db"></app-stat-card>
+    <app-stat-card title="Valid" [value]="checklist.getTotalValid()" color="#27ae60"></app-stat-card>
+    <app-stat-card title="Invalid" [value]="checklist.getTotalInvalid()" color="#e74c3c"></app-stat-card>
+    <app-stat-card title="ASVS Level" [value]="'Level ' + checklist.getOverallLevel()" color="#9b59b6"></app-stat-card>
+  </div>
+</section>

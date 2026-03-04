@@ -1,0 +1,28 @@
+<div class="app-shell">
+  <app-app-header (resetClicked)="reset()"></app-app-header>
+
+  @if (checklist) {
+    <app-checklist-page
+      [checklist]="checklist"
+      [selectedCategory]="selectedCategory"
+      [selectedRequirement]="selectedRequirement"
+      [showAiExplanation]="showAiExplanation"
+      [aiExplanation]="aiExplanation"
+      [aiLoading]="aiLoading"
+      [activeTab]="activeTab"
+      (categorySelected)="selectCategory($event)"
+      (requirementSelected)="selectRequirement($event)"
+      (requirementClosed)="closeRequirement()"
+      (optionSelected)="selectOption($event)"
+      (aiExplanationRequested)="loadAiExplanation()"
+      (bestPracticesRequested)="loadBestPractices()"
+      (codeExampleRequested)="loadCodeExample()"
+      (testingRequested)="loadTestingGuidance()"
+      (aiPanelHidden)="hideAiPanel()">
+    </app-checklist-page>
+  } @else {
+    <div class="loading-state">
+      <h2>Loading...</h2>
+    </div>
+  }
+</div>

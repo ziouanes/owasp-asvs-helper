@@ -1,0 +1,13 @@
+<tr>
+  <td style="text-align: center;">{{ requirement.id }}</td>
+  <td>{{ requirement.verificationRequirement.substring(0, 150) }}...</td>
+  <td style="text-align: center;">L{{ requirement.asvsLevel }}</td>
+  <td style="text-align: center;">
+    <span [style.color]="statusColor" [style.font-weight]="requirement.valid === 'Valid' || requirement.valid === 'Invalid' ? 'bold' : 'normal'">
+      {{ statusLabel }}
+    </span>
+  </td>
+  <td style="text-align: center;">
+    <button (click)="openRequirement.emit(requirement)">Check</button>
+  </td>
+</tr>

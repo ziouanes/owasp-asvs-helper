@@ -1,0 +1,66 @@
+@if (selectedCategory) {
+  <section class="requirements-section">
+    <h2>📝 {{ selectedCategory.name }} - Requirements</h2>
+    <app-requirement-list
+      [requirements]="selectedCategory.requirements"
+      (requirementSelected)="requirementSelected.emit($event)">
+    </app-requirement-list>
+  </section>
+}
+
+@if (selectedRequirement) {
+  <div class="overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>{{ selectedRequirement.id }}</h2>
+        <button (click)="requirementClosed.emit()">✕ Close</button>
+      </div>
+
+      <p class="requirement-text">{{ selectedRequirement.verificationRequirement }}</p>
+
+      <div class="meta">
+        <strong>ASVS Level:</strong> {{ selectedRequirement.asvsLevel }} |
+        @if (selectedRequirement.cwe) {
+          <strong>CWE:</strong> {{ selectedRequirement.cwe }} |
+        }
+        @if (selectedRequirement.nist) {
+          <strong>NIST:</strong> {{ selectedRequirement.nist }}
+        }
+      </div>
+
+      <div class="status-row">
+        <h3>Select Implementation Status:</h3>
+        <button
+          (click)="aiExplanationRequested.emit()"
+          [disabled]="aiLoading"
+          class="ai-btn">
+          @if (aiLoading) {
+            <span>⏳ Loading AI...</span>
+          } @else {
+            <span>🤖 Explain with AI</span>
+          }
+        </button>
+      </div>
+
+      <app-option-group
+        [requirementId]="selectedRequirement.id"
+        [options]="selectedRequirement.options"
+        (optionSelected)="optionSelected.emit($event)">
+      </app-option-group>
+
+      @if (showAiExplanation) {
+        <app-ai-explanation-panel
+          [aiLoading]="aiLoading"
+          [aiExplanation]="aiExplanation"
+          [activeTab]="activeTab"
+          (closePanel)="aiPanelHidden.emit()"
+          (explanationRequested)="aiExplanationRequested.emit()"
+          (bestPracticesRequested)="bestPracticesRequested.emit()"
+          (codeExampleRequested)="codeExampleRequested.emit()"
+          (testingRequested)="testingRequested.emit()"
+          (refreshRequested)="aiExplanationRequested.emit()">
+        </app-ai-explanation-panel>
+      }
+    </div>
+  </div>
+}

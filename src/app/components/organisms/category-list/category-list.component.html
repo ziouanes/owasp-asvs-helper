@@ -1,0 +1,12 @@
+<section class="categories-section">
+  <h2>📋 Security Categories</h2>
+  <div class="categories-grid">
+    @for (category of categories; track category.name) {
+      <app-category-item
+        [category]="category"
+        [selected]="selectedCategoryName === category.name"
+        (selectedCategory)="categorySelected.emit($event)">
+      </app-category-item>
+    }
+  </div>
+</section>

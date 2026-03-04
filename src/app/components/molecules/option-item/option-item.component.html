@@ -1,0 +1,8 @@
+<label class="option-item" [class.selected]="option.isSelected">
+  <input
+    type="radio"
+    [name]="groupName"
+    [checked]="option.isSelected"
+    (change)="optionSelected.emit(option.id)">
+  {{ option.name }}
+</label>

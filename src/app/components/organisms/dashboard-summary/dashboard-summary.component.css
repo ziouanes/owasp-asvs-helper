@@ -1,0 +1,11 @@
+.summary-section {
+  padding: 20px;
+  background: #ecf0f1;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}

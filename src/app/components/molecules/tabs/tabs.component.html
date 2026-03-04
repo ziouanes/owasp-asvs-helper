@@ -1,0 +1,9 @@
+<div class="tabs">
+  @for (item of items; track item.id) {
+    <button
+      (click)="tabSelected.emit(item.id)"
+      [class.active]="activeTab === item.id">
+      {{ item.label }}
+    </button>
+  }
+</div>

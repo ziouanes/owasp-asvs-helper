@@ -177,22 +177,6 @@
  },
  {
     "Area": "Access Control Architecture ",
-  "#": "1.4.2",
-  "ASVS Level": 2,
-  "CWE": 284,
-  "Verification Requirement": "[DELETED, NOT ACTIONABLE] ",
-  "Valid": "Not Applicable"
- },
- {
-    "Area": "Access Control Architecture ",
-  "#": "1.4.3",
-  "ASVS Level": 2,
-  "CWE": 272,
-  "Verification Requirement": "[DELETED, DUPLICATE OF 4.1.3] ",
-  "Valid": "Not Applicable"
- },
- {
-    "Area": "Access Control Architecture ",
   "#": "1.4.4",
   "ASVS Level": 2,
   "CWE": 284,
@@ -327,14 +311,6 @@
   "ASVS Level": 2,
   "CWE": 367,
   "Verification Requirement": "Verify that all high-value business logic flows, including authentication, session management and access control are thread safe and resistant to time-of-check and time-of-use race conditions."
- },
- {
-  "Area": "Secure File Upload Architecture",
-  "#": "1.12.1",
-  "ASVS Level": 2,
-  "CWE": 552,
-  "Verification Requirement": "[DELETED, DUPLICATE OF 12.4.1]",
-  "Valid": "Not Applicable"
  },
  {
     "Area": "Secure File Upload Architecture",

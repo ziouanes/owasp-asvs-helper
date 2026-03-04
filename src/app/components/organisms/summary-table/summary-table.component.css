@@ -1,0 +1,27 @@
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.summary-table thead {
+  background: #34495e;
+  color: #fff;
+}
+
+.center {
+  text-align: center;
+}
+
+.total-row {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.level-ok {
+  color: #27ae60;
+}
+
+.level-empty {
+  color: #95a5a6;
+}

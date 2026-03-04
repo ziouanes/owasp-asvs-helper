@@ -1,0 +1,15 @@
+.req-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.req-table thead {
+  background: #34495e;
+  color: #fff;
+}
+
+.req-table button {
+  padding: 5px 15px;
+  cursor: pointer;
+}
